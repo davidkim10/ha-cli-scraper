@@ -2,6 +2,15 @@
 
 Node based web scraping tool built for a sales team to help aggregate contractor lead data from the Washington License Board.
 
+Data points that are collected include the following:
+
+- Business Name
+- Owner First Name
+- Owner Last Name
+- Phone Number
+- Contractor License Effective Date
+- Contractor License Expiration Date
+
 The scraped lead data is parsed and exported into a CSV file.
 
 ## 🚀 Quick start
