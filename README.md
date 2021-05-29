@@ -21,11 +21,11 @@ The scraped lead data is parsed and exported into a CSV file.
         ```shell
         node scrape --query=plumbing --quantity=10
         ```
-        | Parameters     | Description |
 
-    | ----------- | ----------- |
-    | query | Enter keyword or desired search term |
-    | quantity | Desired quantity of lead results |
+    | Parameters | Description                          |
+    | ---------- | ------------------------------------ |
+    | query      | Enter keyword or desired search term |
+    | quantity   | Desired quantity of lead results     |
 
 ## 📷 Screenshots
 
