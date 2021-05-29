@@ -18,9 +18,9 @@ The scraped lead data is parsed and exported into a CSV file.
 
 2.  **Basic Usage**
 
-        ```shell
-        node scrape --query=plumbing --quantity=10
-        ```
+    ```shell
+    node scrape --query=plumbing --quantity=10
+    ```
 
     | Parameters | Description                          |
     | ---------- | ------------------------------------ |
