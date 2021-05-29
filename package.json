@@ -1,0 +1,19 @@
+{
+  "name": "ha-cli-scraper",
+  "version": "1.0.0",
+  "description": "Web scraping tool to collect lead information for Home Advisor ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cli-color": "^2.0.0",
+    "moment": "^2.25.3",
+    "objects-to-csv": "^1.3.6",
+    "puppeteer": "^2.0.0",
+    "short-uuid": "^4.2.0",
+    "yargs": "^17.0.1"
+  }
+}
