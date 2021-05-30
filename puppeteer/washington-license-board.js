@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const { clc, info, notice, success } = require('../clicolors');
+const { waitTillHTMLRendered } = require('./utils');
 
 // Puppeteer Browser Config
 const config = require('./config');
@@ -48,14 +49,17 @@ const searchWashington = async (query, requestedQuantity) => {
     firstSearch: 1,
   };
 
+  console.log(`Connecting to ${RESULTS.source}... \n`);
   const queryParams = encodeURIComponent(JSON.stringify(searchQuery));
-  await page.goto(`${baseUrl}#${queryParams}`), { waitUntil: 'networkidle0' };
+  await page.goto(`${baseUrl}#${queryParams}`, {
+    timeout: 10000,
+    waitUntil: 'load',
+  });
+  await waitTillHTMLRendered(page);
 
   // Wait for Total Results to load
   try {
-    console.log(`Connecting to ${RESULTS.source}... \n`);
     await page.waitForSelector('#resultsArea');
-    await newPage.waitForNavigation({ waitUntil: 'networkidle0' });
   } catch (e) {
     if (e instanceof puppeteer.errors.TimeoutError) {
       console.log('Timeout Error!', e);
@@ -73,9 +77,8 @@ const searchWashington = async (query, requestedQuantity) => {
   await page.waitFor(4000);
 
   try {
-    await page.waitForSelector('#chkLicStatusNo', {
-      visible: true,
-    });
+    await newPage.waitForNavigation({ waitUntil: 'networkidle0' });
+    await page.waitForSelector('#chkLicStatusNo');
     await page.waitForSelector('#itemsTotal');
   } catch (e) {
     if (e instanceof puppeteer.errors.TimeoutError) {
@@ -152,7 +155,7 @@ const searchWashington = async (query, requestedQuantity) => {
   // •
   // Loop through each ID (business profile) from the list above
   for (business of businessIds) {
-    console.log(notice('[Scrape Business ID]'), business);
+    console.log(notice('[SCRAPE]'), `Business ID: ${business}`);
     // --> Open link in new page
     newPage.goto(`https://secure.lni.wa.gov/verify/Detail.aspx?${business}`, {
       waitUntil: 'networkidle2',
