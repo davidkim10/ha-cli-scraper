@@ -12,7 +12,7 @@ const createCsv = (dataObject, query) => {
   csv.toDisk(`./csv/${fileName}.csv`);
 
   console.log(
-    success('\n[Success]'),
+    success('\n[SUCCESS]'),
     'CSV file has been created successfully.',
     '\n'
   );
