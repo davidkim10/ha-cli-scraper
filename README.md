@@ -1,6 +1,6 @@
 # ha-cli-scraper
 
-Node based web scraping tool built for a sales team to help aggregate contractor lead data from the Washington License Board.
+Node based web scraping tool built for a sales team at Home Advisor to help aggregate contractor lead data from the Washington License Board.
 
 Data points that are collected include the following:
 
@@ -11,7 +11,7 @@ Data points that are collected include the following:
 - Contractor License Effective Date
 - Contractor License Expiration Date
 
-The scraped lead data is parsed and exported into a CSV file.
+The scraped lead data is parsed and exported into a [CSV File](https://github.com/davidkim10/ha-cli-scraper/blob/master/csv/plumbing-05-19-2021_1NrrDhfvUudxf26dYmjWLv.csv).
 
 ## 🚀 Quick start
 
