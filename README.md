@@ -11,7 +11,7 @@ Data points that are collected include the following:
 - Contractor License Effective Date
 - Contractor License Expiration Date
 
-The scraped lead data is parsed and exported into a [CSV File](https://github.com/davidkim10/ha-cli-scraper/blob/master/csv/plumbing-05-19-2021_1NrrDhfvUudxf26dYmjWLv.csv).
+The scraped lead data is parsed and exported into a CSV file.
 
 ## 🚀 Quick start
 
