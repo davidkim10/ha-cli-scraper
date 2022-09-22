@@ -3,6 +3,7 @@ const error = clc.red;
 const info = clc.cyanBright;
 const notice = clc.yellowBright;
 const success = clc.green;
+const moment = require("moment");
 
 class Logger {
   constructor() {
@@ -10,8 +11,9 @@ class Logger {
   }
 
   addLogHistory(message, type = "log") {
-    const date = new Date();
-    const log = { date, type, log: message };
+    const seen = moment().fromNow("ss");
+    const date = moment().valueOf();
+    const log = { seen, date, type, log: message };
     this.logs.push(log);
   }
 
