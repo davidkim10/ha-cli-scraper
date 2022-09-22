@@ -18,7 +18,7 @@ class PageOptimizer {
     });
   }
 
-  static async waitTillHTMLRendered(page, timeout = 30000) {
+  static async waitTillHTMLRendered(page, timeout = 30000, verbose) {
     const checkDurationMsecs = 1000;
     const maxChecks = timeout / checkDurationMsecs;
     let lastHTMLSize = 0;
@@ -33,14 +33,16 @@ class PageOptimizer {
         () => document.body.innerHTML.length
       );
 
-      console.log(
-        4,
-        lastHTMLSize,
-        " <> curr_html_size: ",
-        currentHTMLSize,
-        " <> body_html_size: ",
-        bodyHTMLSize
-      );
+      if (verbose) {
+        console.log(
+          " <> prev_size_check: ",
+          lastHTMLSize,
+          " <> curr_html_size: ",
+          currentHTMLSize,
+          " <> body_html_size: ",
+          bodyHTMLSize
+        );
+      }
 
       if (lastHTMLSize && currentHTMLSize == lastHTMLSize) {
         countStableSizeIterations++;
@@ -49,7 +51,7 @@ class PageOptimizer {
       }
 
       if (countStableSizeIterations >= minStableSizeIterations) {
-        logger.success("Page has loaded successfully.");
+        verbose && logger.success("Page has loaded successfully.");
         break;
       }
 
