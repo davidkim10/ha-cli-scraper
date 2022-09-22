@@ -1,4 +1,4 @@
-# ha-cli-scraper
+# HA CLI Web Scraper
 
 Node based web scraping tool built for a sales team at Home Advisor to help aggregate contractor lead data from the Washington License Board.
 
