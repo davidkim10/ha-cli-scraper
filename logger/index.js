@@ -5,49 +5,60 @@ const notice = clc.yellowBright;
 const success = clc.green;
 
 class Logger {
-  logs = [];
+  constructor() {
+    this.logs = [];
+  }
+
+  addLogHistory(message, type = "log") {
+    const date = new Date();
+    const log = { date, type, log: message };
+    this.logs.push(log);
+  }
 
   history() {
     console.table(this.logs);
   }
 
-  log(message) {
+  log(message, historyMsg, type) {
     const log = message + `\n`;
-    const date = new Date();
-    this.logs.push([date, message]);
+    const historyLog = historyMsg ?? message;
+    this.addLogHistory(historyLog, type);
     process.stdout.write(log);
   }
 
   bold(message) {
     const log = clc.bold(message);
-    this.log(log);
+    this.log(log, message, "bold");
   }
 
   error(message) {
     const log = error("[ERROR]") + ` ${message}`;
-    this.log(log);
+    this.log(log, message, "error");
   }
 
   scrape(message) {
     const log = notice("[SCRAPE]") + ` ${message}`;
-    this.log(log);
+    this.log(log, message, "scrape");
   }
 
   start() {
-    const intro = "....\n" + "• RUNNING SCRAPER •\n" + "....\n";
+    const message = "• RUNNING SCRAPER •";
+    const intro = `....\n ${message} \n....\n`;
     const style = { ".": notice("-----") };
-    this.log(clc.art(intro, style));
+    this.log(clc.art(intro, style), message, "start");
   }
 
   success(message) {
     const log = success("[SUCCESS]") + ` ${message}`;
-    this.log(log);
+    this.log(log, message, "success");
   }
 
   table(obj) {
     const tableHead = Object.keys(obj).map((th) => info(th));
     const tableBody = Object.values(obj);
-    process.stdout.write(clc.columns([tableHead, tableBody]));
+    const table = clc.columns([tableHead, tableBody]);
+    this.addLogHistory(obj, "table");
+    process.stdout.write(`\n ${table} \n`);
   }
 }
 
