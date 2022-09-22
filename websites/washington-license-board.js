@@ -1,6 +1,6 @@
 const Logger = require("../logger");
-const WebScraper = require("../puppeteer/WebScraper");
-const PageOptimizer = require("../puppeteer/PageOptimizer");
+const WebScraper = require("../web-scraper/WebScraper");
+const PageOptimizer = require("../web-scraper/PageOptimizer");
 
 const searchWashington = async (query, requestedQuantity) => {
   const logger = new Logger();
