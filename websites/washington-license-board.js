@@ -4,8 +4,10 @@ const PageOptimizer = require("../web-scraper/PageOptimizer");
 
 const searchWashington = async (query, requestedQuantity) => {
   const logger = new Logger();
-  const BASE_URL = "https://secure.lni.wa.gov/verify/Results.aspx";
   const BUSINESS_IDS = [];
+  const BASE_URL = "https://secure.lni.wa.gov/verify";
+  const BUSINESS_PAGE_URL = `${BASE_URL}/Detail.aspx`;
+  const DIRECTORY_URL = `${BASE_URL}/Results.aspx`;
   const DATA_POINTS = {
     firstName: "#BusinesOwnersFirstName",
     lastName: "#BusinesOwnersLastName",
@@ -30,7 +32,7 @@ const searchWashington = async (query, requestedQuantity) => {
 
   // Create web scraper
   logger.start();
-  const targetURL = `${BASE_URL}#${SEARCH_QUERY}`;
+  const targetURL = `${DIRECTORY_URL}#${SEARCH_QUERY}`;
   const webScraper = new WebScraper("Washington License Board");
   const browser = await webScraper.start();
   const page = await webScraper.newPage(targetURL, "homepage");
@@ -86,9 +88,9 @@ const searchWashington = async (query, requestedQuantity) => {
   }
 
   async function scrapeBusinessPage(page, businessId) {
-    const targetURL = `https://secure.lni.wa.gov/verify/Detail.aspx?${businessId}`;
+    const businessPageURL = `${BUSINESS_PAGE_URL}?${businessId}`;
     try {
-      await page.goto(targetURL, { waitUntil: "domcontentloaded" });
+      await page.goto(businessPageURL, { waitUntil: "domcontentloaded" });
       await PageOptimizer.waitTillHTMLRendered(page);
       logger.scrape(`Business ID: ${businessId}`);
       const companyData = await page.evaluate((DATA_POINTS) => {
@@ -146,11 +148,10 @@ const searchWashington = async (query, requestedQuantity) => {
   if (requestedQuantity > 100) {
     await paginateResultsPer100();
   } else {
-    const groupOfIds = await scrapeBusinessIds(requestedQuantity);
-    BUSINESS_IDS.push(...groupOfIds);
+    const businessIds = await scrapeBusinessIds(requestedQuantity);
+    BUSINESS_IDS.push(...businessIds);
   }
 
-  // Loop through each ID (business profile) from the list above
   const page2 = await browser.newPage();
   for (let business of BUSINESS_IDS) {
     const data = await scrapeBusinessPage(page2, business);
