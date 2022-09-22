@@ -18,6 +18,12 @@ class WebScraper {
     return encodeURIComponent(JSON.stringify(query));
   }
 
+  static isTimeOutError(err) {
+    if (err instanceof puppeteer.errors.TimeoutError) {
+      return true;
+    }
+  }
+
   get data() {
     return this._data;
   }

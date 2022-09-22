@@ -1,4 +1,3 @@
-const puppeteer = require("puppeteer");
 const Logger = require("../logger");
 const WebScraper = require("../puppeteer/WebScraper");
 const PageOptimizer = require("../puppeteer/PageOptimizer");
@@ -46,9 +45,9 @@ const searchWashington = async (query, requestedQuantity) => {
       PageOptimizer.waitTillHTMLRendered(page);
       await page.waitForSelector("#chkLicStatusNo");
       await page.waitForSelector("#itemsTotal");
-    } catch (e) {
-      if (e instanceof puppeteer.errors.TimeoutError) {
-        logger.error(`Timeout Error!: ${e.message}`);
+    } catch (err) {
+      if (WebScraper.isTimeOutError(err)) {
+        logger.error(`Timeout Error!: ${err.message}`);
       }
     }
   }
