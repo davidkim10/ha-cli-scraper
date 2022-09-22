@@ -59,4 +59,4 @@ class PageOptimizer {
   }
 }
 
-module.exports = { PageOptimizer };
+module.exports = PageOptimizer;
