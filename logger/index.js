@@ -11,9 +11,9 @@ class Logger {
   }
 
   addLogHistory(message, type = "log") {
-    const seen = moment().fromNow("ss");
     const date = moment().valueOf();
-    const log = { seen, date, type, log: message };
+    const seen = moment().fromNow("ss");
+    const log = { date, seen, type, log: message };
     this.logs.push(log);
   }
 

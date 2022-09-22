@@ -38,4 +38,4 @@ The scraped lead data is parsed and exported into a CSV file.
 
 ## 📷 Screenshots
 
-![Screenshots](./screenshot-01.png)
+![Screenshots](./public/screenshot-01.png)
